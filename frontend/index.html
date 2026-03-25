@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Interviewer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Landing View -->
+        <section id="landing-view" class="active">
+            <main class="container">
+                <div class="hero-section">
+                    <div class="glass-panel main-panel">
+                        <div style="text-align: center; margin-bottom: 2rem;">
+                            <h1 class="gradient-text">AI Interviewer</h1>
+                            <p style="color: var(--text-muted);">Master your next tech interview with our advanced AI recruiter.</p>
+                        </div>
+                        
+                        <form id="setup-form" class="setup-form">
+                            <div class="form-group">
+                                <label><i data-lucide="briefcase"></i> Target Position</label>
+                                <input id="pos-input" type="text" placeholder="e.g. Python Developer" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i data-lucide="code"></i> Key Skills</label>
+                                <input id="skills-input" type="text" placeholder="e.g. FastAPI, Python, SQL" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i data-lucide="clock"></i> Years of Experience</label>
+                                <select id="exp-input" required>
+                                    <option value="" disabled selected>Select level</option>
+                                    <option value="0-1">0-1 Years</option>
+                                    <option value="1-3">1-3 Years</option>
+                                    <option value="3-5">3-5 Years</option>
+                                    <option value="5+">5+ Years</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="primary-btn" style="margin-top: 1rem;">
+                                Start Interview <i data-lucide="arrow-right"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </section>
+
+        <!-- Loading View -->
+        <section id="loading-view">
+            <div class="container" style="text-align: center; margin-top: 20vh;">
+                <div class="loading-spinner" style="margin: 0 auto 2rem;"></div>
+                <h2 id="loading-text">Preparing your interview...</h2>
+                <p style="color: var(--text-muted);">AI is analyzing your profile and generating custom questions.</p>
+            </div>
+        </section>
+
+        <!-- Interview View -->
+        <section id="interview-view">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <h2 id="room-position-title" style="margin: 0;">Position Interview</h2>
+                        <span id="question-counter" style="color: var(--text-muted); font-size: 0.9rem;">Question 1 of 5</span>
+                    </div>
+                    <button id="mute-btn" class="glass-panel" style="padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <i data-lucide="volume-2" id="mute-icon"></i> <span id="mute-text">Mute</span>
+                    </button>
+                </div>
+
+                <div class="grid">
+                    <div class="video-container relative" style="position: relative;">
+                        <video id="webcam" autoplay muted playsinline></video>
+                        <div id="recording-overlay" class="recording-indicator" style="display: none;">
+                            <div class="red-dot"></div> Listening...
+                        </div>
+                    </div>
+
+                    <div class="interaction-panel glass-panel">
+                        <div id="question-box">
+                            <h3 id="current-question-text" style="font-size: 1.5rem; min-height: 80px;">Loading question...</h3>
+                        </div>
+                        <div class="answer-box">
+                            <span style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">Transcript</span>
+                            <p id="transcript-text" style="margin-top: 0.5rem; color: #ccc;">Click 'Start Answering' to begin.</p>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: auto;">
+                            <button id="toggle-record-btn" class="primary-btn" style="background: rgba(16, 185, 129, 0.2); color: var(--success);">
+                                <i data-lucide="play"></i> Start Answering
+                            </button>
+                            <button id="next-btn" class="primary-btn">
+                                Next Question <i data-lucide="chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feedback View -->
+        <section id="feedback-view">
+            <div class="container">
+                <div class="glass-panel" style="text-align: center; margin-bottom: 2rem;">
+                    <h1 class="gradient-text">Interview Results</h1>
+                    <div class="score-circle">
+                        <span id="score-val">85</span>
+                        <small>/ 100</small>
+                    </div>
+                    <p id="overall-feedback" style="font-size: 1.1rem; max-width: 800px; margin: 0 auto;"></p>
+                </div>
+
+                <div class="grid">
+                    <div class="glass-panel">
+                        <h3 style="color: var(--success); display: flex; align-items: center; gap: 0.5rem;">
+                            <i data-lucide="check-circle"></i> Strengths
+                        </h3>
+                        <ul id="strengths-list" style="padding-left: 1.2rem;"></ul>
+                    </div>
+                    <div class="glass-panel">
+                        <h3 style="color: var(--danger); display: flex; align-items: center; gap: 0.5rem;">
+                            <i data-lucide="alert-circle"></i> Weaknesses
+                        </h3>
+                        <ul id="weaknesses-list" style="padding-left: 1.2rem;"></ul>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="margin-top: 1.5rem;">
+                    <h3><i data-lucide="award"></i> Actionable Improvements</h3>
+                    <ul id="improvements-list" style="padding-left: 1.2rem;"></ul>
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button onclick="location.reload()" class="primary-btn" style="margin: 0 auto;">Take Another Interview</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

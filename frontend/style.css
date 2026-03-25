@@ -29,6 +29,7 @@ body {
     radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%);
   background-attachment: fixed;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .container {
@@ -49,7 +50,6 @@ h1, h2, h3, h4 {
   background-clip: text;
 }
 
-/* Glassmorphism Panel */
 .glass-panel {
   background: var(--panel-bg);
   backdrop-filter: blur(12px);
@@ -60,6 +60,16 @@ h1, h2, h3, h4 {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
+/* Sections */
+#landing-view, #interview-view, #loading-view, #feedback-view {
+  display: none;
+}
+
+.active {
+  display: block !important;
+}
+
+/* Landing */
 .hero-section {
   display: flex;
   justify-content: center;
@@ -72,17 +82,6 @@ h1, h2, h3, h4 {
   width: 100%;
 }
 
-.panel-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.subtitle {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-}
-
-/* Form Styles */
 .setup-form {
   display: flex;
   flex-direction: column;
@@ -93,15 +92,6 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.form-group label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--foreground);
 }
 
 input, select {
@@ -121,7 +111,6 @@ input:focus, select:focus {
   box-shadow: 0 0 0 2px var(--primary-glow);
 }
 
-/* Buttons */
 .primary-btn {
   display: flex;
   align-items: center;
@@ -136,7 +125,6 @@ input:focus, select:focus {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  margin-top: 1rem;
 }
 
 .primary-btn:hover {
@@ -144,104 +132,52 @@ input:focus, select:focus {
   transform: translateY(-1px);
 }
 
-.glow-effect:hover {
-  box-shadow: 0 0 15px var(--primary-glow);
-}
-
-/* Interview Room Styles */
-.interview-container {
-  min-height: calc(100vh - 4rem);
-}
-
-.spinner {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.pulse-animation {
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-  70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
-}
-
-.progress-bar-container {
-  width: 200px;
-  height: 6px;
-  background-color: var(--border);
-  border-radius: 3px;
+/* Interview Room */
+.video-container {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 0.75rem;
   overflow: hidden;
 }
 
-.progress-bar {
+video {
+  width: 100%;
   height: 100%;
-  background-color: var(--primary);
-  transition: width 0.3s ease;
+  object-fit: cover;
 }
 
-.score-circle {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 4px solid var(--primary);
+.interaction-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 1.5rem;
+}
+
+.answer-box {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  min-height: 120px;
+}
+
+.recording-indicator {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(0,0,0,0.5);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 4rem;
-  font-weight: bold;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-}
-
-.score-circle small {
-  font-size: 1.25rem;
-  color: var(--text-muted);
-}
-
-.custom-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  text-align: left;
-}
-
-.custom-list li {
-  padding-left: 1.5rem;
-  position: relative;
-}
-
-.custom-list li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: var(--primary);
-}
-
-.text-success { color: var(--success); }
-.text-danger { color: var(--danger); }
-.text-primary { color: var(--primary); }
-
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.5s ease forwards;
-}
-
-@keyframes fadeInUp {
-  to { opacity: 1; transform: translateY(0); }
+  gap: 0.5rem;
 }
 
 .red-dot {
-  width: 10px;
-  height: 10px;
-  background-color: red;
+  width: 8px;
+  height: 8px;
+  background: red;
   border-radius: 50%;
   animation: blink 1s infinite;
 }
@@ -250,4 +186,47 @@ input:focus, select:focus {
   0% { opacity: 1; }
   50% { opacity: 0; }
   100% { opacity: 1; }
+}
+
+/* Feedback */
+.score-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid var(--primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0 auto 2rem;
+}
+
+.score-circle small {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255,255,255,0.1);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }

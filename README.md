@@ -1,57 +1,48 @@
-# AI Interviewer 🤖🎙️
+# AI Interviewer 🐍🎙️
 
-An end-to-end AI-powered application designed to conduct mock technical interviews using Google Gemini AI, real-time webcam feedback, and automated speech-to-text transcription.
+An end-to-end AI-powered application designed to conduct mock technical interviews using a **Python (FastAPI)** backend, Google Gemini AI, and a premium **Vanilla JavaScript/CSS** frontend.
 
 ## 🚀 Features
 
-- **Dynamic Question Generation**: Tailored interviews based on specific skills, position, and years of experience.
+- **Dynamic Question Generation**: Tailored interviews based on specific skills, position, and experience.
 - **AI Recruiter Voice**: Experience a realistic interview with a synthesizer-powered AI recruiter.
 - **Real-time Transcription**: Powered by the Web Speech API for seamless voice-to-text answers.
-- **Webcam Integration**: Practice in a real interview setting with video feedback.
-- **Detailed AI Evaluation**: Receive a professional score, feedback on strengths and weaknesses, and actionable improvement steps.
+- **Premium Glassmorphic UI**: A stunning, modern interface built with Vanilla CSS.
+- **FastAPI Backend**: High-performance Python server using `google-generativeai`.
 
-## 🛠️ Tech Stack
+## 🛠️ Project Structure
 
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Vanilla CSS (Premium Glassmorphic Design)
-- **AI Platform**: Google Gemini 2.5 Flash
-- **Icons**: Lucide React
-- **Browser APIs**: WebRTC (Camera/Mic), Web Speech (Speech-to-Text & Text-to-Speech)
+- `/backend`: FastAPI server and AI logic.
+- `/frontend`: Static HTML, CSS, and JS.
 
 ## 🏁 Getting Started
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18 or higher)
-- A Google Gemini API Key. You can get one at [AI Studio](https://aistudio.google.com/).
+- [Python 3.9+](https://www.python.org/)
+- A Google Gemini API Key.
 
-### Installation
+### Installation & Run
 
-1. Clone the repository:
+1. **Clone & Navigate**:
    ```bash
-   git clone [your-repo-url]
-   cd ai-interviewer
+   cd backend
    ```
 
-2. Install dependencies:
+2. **Install Dependencies**:
    ```bash
-   npm install
+   pip install -r requirements.txt
    ```
 
-3. Set up environment variables:
-   Create a `.env.local` file in the root and add:
-   ```env
-   GEMINI_API_KEY=your_gemini_api_key_here
-   ```
+3. **Environment Settings**:
+   Add your `GEMINI_API_KEY` to a `.env` file inside the `backend` folder.
 
-4. Start the development server:
+4. **Launch**:
    ```bash
-   npm run dev
+   python main.py
    ```
 
-5. Visit [http://localhost:3000](http://localhost:3000) in your browser.
+5. Visit [http://localhost:8000](http://localhost:8000).
 
 ## 📝 License
-
-This project is open-source and available under the MIT License.
+MIT License.
