@@ -18,6 +18,7 @@ else:
     client = genai.Client(api_key=api_key)
 
 app = FastAPI(title="AI Interviewer API")
+print("AI INTERVIEWER BACKEND: GEMINI-2.0-FLASH VERSION ACTIVE")
 
 app.add_middleware(
     CORSMiddleware,
