@@ -63,7 +63,12 @@ window.speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
 
 function speak(text) {
-    if (state.isMuted) return;
+    console.log("AI is trying to speak:", text);
+    if (state.isMuted) {
+        console.warn("Speech suppressed: App is muted.");
+        return;
+    }
+    
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 0.9;
@@ -74,13 +79,26 @@ function speak(text) {
         v.lang.startsWith('en')
     ) || availableVoices.find(v => v.lang.startsWith('en'));
     
-    if (preferred) utterance.voice = preferred;
+    if (preferred) {
+        console.log("Using voice:", preferred.name);
+        utterance.voice = preferred;
+    } else {
+        console.warn("No English voice found, using default.");
+    }
+    
+    utterance.onerror = (e) => console.error("SpeechSynthesis Error:", e);
+    utterance.onstart = () => console.log("Speech started...");
+    
     window.speechSynthesis.speak(utterance);
 }
 
 // Landing Form Submit
 document.getElementById('setup-form').addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    // Initialize speech synthesis on user gesture
+    speak(" "); // Empty speak to unlock audio
+    
     state.interviewData.position = document.getElementById('pos-input').value;
     state.interviewData.skills = document.getElementById('skills-input').value;
     state.interviewData.experience = document.getElementById('exp-input').value;
