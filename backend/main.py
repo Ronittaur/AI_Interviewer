@@ -55,7 +55,7 @@ Example:
 
         try:
             response = client.models.generate_content(
-                model="gemini-2.0-flash",
+                model="gemini-1.5-flash",
                 contents=prompt
             )
         except Exception as e:
@@ -121,7 +121,7 @@ Provide a comprehensive evaluation in JSON format:
 Output strictly valid JSON. No markdown."""
 
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-1.5-flash",
             contents=prompt
         )
         
