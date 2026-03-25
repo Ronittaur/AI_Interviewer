@@ -55,13 +55,25 @@ function showView(viewName) {
 }
 
 // Recruiter Speaker
+let availableVoices = [];
+function loadVoices() {
+    availableVoices = window.speechSynthesis.getVoices();
+}
+window.speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
+
 function speak(text) {
     if (state.isMuted) return;
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 0.9;
-    const voices = window.speechSynthesis.getVoices();
-    const preferred = voices.find(v => v.name.includes('Google') || v.name.includes('Female'));
+    
+    // Try to find a professional sounding voice
+    const preferred = availableVoices.find(v => 
+        (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Neural')) && 
+        v.lang.startsWith('en')
+    ) || availableVoices.find(v => v.lang.startsWith('en'));
+    
     if (preferred) utterance.voice = preferred;
     window.speechSynthesis.speak(utterance);
 }
@@ -188,6 +200,8 @@ function renderFeedback(data) {
     document.getElementById('score-val').innerText = data.score;
     document.getElementById('overall-feedback').innerText = data.feedback;
     
+    speak(`Interview complete. Your overall score is ${data.score} out of 100. ${data.feedback}`);
+
     const fillList = (id, items) => {
         const el = document.getElementById(id);
         el.innerHTML = "";
