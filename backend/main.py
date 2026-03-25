@@ -45,18 +45,21 @@ async def generate_questions(request: Request):
         prompt = f"""You are an expert technical interviewer hiring for the position of "{position}".
 The candidate has {experience} years of experience and lists the following skills: "{skills}".
 
-Generate exactly 5 to 6 relevant interview questions for this candidate. 
-The questions should test their specific skills, be appropriate for their experience level.
+Generate exactly 5 to 6 UNIQUE and varied technical interview questions for this candidate.
+Every time you are asked, provide a DIFFERENT set of questions than common ones.
+Mix conceptual, coding, and situational questions.
 
 Output strictly as a JSON array of strings. Do not include markdown formatting or backticks. 
-
-Example:
-["Question 1", "Question 2"]"""
+"""
 
         try:
             response = client.models.generate_content(
                 model="gemini-flash-latest",
-                contents=prompt
+                contents=prompt,
+                config={
+                    "temperature": 0.9,
+                    "top_p": 0.95,
+                }
             )
         except Exception as e:
             print(f"Primary model failed: {e}")
