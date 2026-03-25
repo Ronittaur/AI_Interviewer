@@ -1,8 +1,8 @@
-# AI Interviewer 🐍🎙️
+# AI Interviewer
 
 An end-to-end AI-powered application designed to conduct mock technical interviews using a **Python (FastAPI)** backend, Google Gemini AI, and a premium **Vanilla JavaScript/CSS** frontend.
 
-## 🚀 Features
+## Features
 
 - **Dynamic Question Generation**: Tailored interviews based on specific skills, position, and experience.
 - **AI Recruiter Voice**: Experience a realistic interview with a synthesizer-powered AI recruiter.
@@ -10,7 +10,7 @@ An end-to-end AI-powered application designed to conduct mock technical intervie
 - **Premium Glassmorphic UI**: A stunning, modern interface built with Vanilla CSS.
 - **FastAPI Backend**: High-performance Python server using `google-generativeai`.
 
-## 🛠️ Project Structure
+## Project Structure
 
 - `/backend`: FastAPI server and AI logic.
 - `/frontend`: Static HTML, CSS, and JS.
