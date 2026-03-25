@@ -52,10 +52,20 @@ Output strictly as a JSON array of strings. Do not include markdown formatting o
 Example:
 ["Question 1", "Question 2"]"""
 
-        response = client.models.generate_content(
-            model="gemini-1.5-flash",
-            contents=prompt
-        )
+        try:
+            response = client.models.generate_content(
+                model="gemini-2.0-flash",
+                contents=prompt
+            )
+        except Exception as e:
+            print(f"Primary model failed: {e}")
+            print("Listing available models for debugging:")
+            try:
+                available = [m.name for m in client.models.list()]
+                print(f"Available models: {available}")
+            except:
+                print("Could not list models.")
+            raise e
         
         text = response.text.strip()
         
@@ -110,7 +120,7 @@ Provide a comprehensive evaluation in JSON format:
 Output strictly valid JSON. No markdown."""
 
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-2.0-flash",
             contents=prompt
         )
         
