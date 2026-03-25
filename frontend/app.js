@@ -73,8 +73,11 @@ function speak(text) {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 0.9;
     
-    // Try to find a professional sounding voice
+    // Try to find a natural Indian English voice first, then other professional English voices
     const preferred = availableVoices.find(v => 
+        v.lang === 'en-IN' && (v.name.includes('Google') || v.name.includes('Natural'))
+    ) || availableVoices.find(v => v.lang === 'en-IN') 
+      || availableVoices.find(v => 
         (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Neural')) && 
         v.lang.startsWith('en')
     ) || availableVoices.find(v => v.lang.startsWith('en'));
