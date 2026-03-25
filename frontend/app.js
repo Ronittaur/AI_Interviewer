@@ -82,7 +82,14 @@ document.getElementById('setup-form').addEventListener('submit', async (e) => {
             body: JSON.stringify(state.interviewData)
         });
         const data = await res.json();
+        
+        if (!res.ok || !data.questions) {
+            throw new Error(data.detail || data.error || "Failed to generate questions. Please wait a moment and try again.");
+        }
+        
         state.questions = data.questions;
+        state.currentIdx = 0;
+        state.answers = [];
         
         // Setup Media
         state.stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
