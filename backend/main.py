@@ -1,6 +1,5 @@
 import os
 import json
-from data import prompt_templates
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
