@@ -18,7 +18,7 @@ else:
     client = genai.Client(api_key=api_key)
 
 app = FastAPI(title="AI Interviewer API")
-print("AI INTERVIEWER BACKEND: GEMINI-2.0-FLASH VERSION ACTIVE")
+print("AI INTERVIEWER BACKEND: GEMINI-FLASH-LATEST VERSION ACTIVE")
 
 app.add_middleware(
     CORSMiddleware,
@@ -55,7 +55,7 @@ Example:
 
         try:
             response = client.models.generate_content(
-                model="gemini-1.5-flash",
+                model="gemini-flash-latest",
                 contents=prompt
             )
         except Exception as e:
@@ -121,7 +121,7 @@ Provide a comprehensive evaluation in JSON format:
 Output strictly valid JSON. No markdown."""
 
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-flash-latest",
             contents=prompt
         )
         
