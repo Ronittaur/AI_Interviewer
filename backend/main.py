@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from genai import Client
+from google import genai
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -15,7 +15,7 @@ if not api_key:
     print("Warning: GEMINI_API_KEY not found in environment")
     client = None
 else:
-    client = Client(api_key=api_key)
+    client = genai.Client(api_key=api_key)
 
 app = FastAPI(title="AI Interviewer API")
 
